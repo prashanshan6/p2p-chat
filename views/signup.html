@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SignUp</title>
+        <link rel="stylesheet" href="./styles/style.css" />
+    </head>
+    <body style="background-color: #21204a; overflow: hidden;">
+        <!-- link -->
+
+        <!-- <link rel="stylesheet" href="./bootstrap/bootstrap.min.css" /> -->
+        <link rel="stylesheet" href="./bootstrap/bootstrap.css" />
+
+        <!-- <script src="./bootstrap/jquery-3.4.1.slim.min.js"></script> -->
+        <script src="./scripts/jquery-3.4.1.min.js"></script>
+
+        <script src="./bootstrap/popper.min.js"></script>
+        <!-- <script src="./bootstrap/bootstrap.min.js"></script> -->
+        <script src="./bootstrap/bootstrap.js"></script>
+
+        <!--  -->
+        <div class="header"></div>
+        <!-- univ nav bar header -->
+        <script>
+            $(function () {
+                $(".header").load("./universalNav.html");
+            });
+        </script>
+        <!--  -->
+        <div class="loginBox">
+            <h2>SignUp</h2>
+            <div class="form-group">
+                <label for="exampleInputName1">Name</label>
+                <input
+                    type="Name"
+                    class="form-control"
+                    id="name"
+                    aria-describedby="NameHelp"
+                    placeholder="Enter Name"
+                />
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                />
+                <small id="emailHelp" class="form-text"
+                    >We'll never share your email with anyone else.</small
+                >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Password"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Confirm Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="rePassword"
+                    placeholder="Confirm Password"
+                />
+            </div>
+            <button type="submit" onclick="signup()" class="btn btn-primary">
+                Submit
+            </button>
+            <script src="./scripts/sky.js"></script>
+        </div>
+
+        <script>
+            function signup() {
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                var confirmPassword = document.getElementById("rePassword")
+                    .value;
+
+                var payload = {
+                    name: name,
+                    email: email,
+                    password: password,
+                };
+
+                var dataJson = JSON.stringify(payload);
+
+                if (password == confirmPassword) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:5000/api/user/signup",
+                        data: dataJson,
+
+                        success: function (data) {
+                            // console.log(data);
+                            alert("Account Created Successfully");
+                            window.location.href = "./login.html";
+                        },
+                        error: function (e) {
+                            alert(e.responseText);
+                            console.log(
+                                e.responseText,
+                                e.responseJSON,
+                                e.status,
+                                e.statusText
+                            );
+                        },
+                        // complete: function(jqxhr, txt_status) {
+                        //     console.log(txt_status, jqxhr);
+                        // }
+
+                        dataType: "json",
+                        contentType: "application/json",
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

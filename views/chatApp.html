@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Chat App</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="./styles/chatApp.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="./styles/modals.css"
+        />
+        <script src="./scripts/jquery-3.4.1.min.js"></script>
+
+        <script
+            defer
+            src="http://localhost:3000/socket.io/socket.io.js"
+        ></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+        ;
+        <!-- donot chage order of clickables and socket and bundled -->
+        <script defer src="./scripts/dynamic/clickables.js"></script>
+
+        <script defer src="./scripts/socket_bundled.js"></script>
+        <!--  -->
+        <script>
+            if(sessionStorage.getItem("x-user-token") == undefined){
+                alert("You have to login first");
+                window.location = "/api/user/login.html";
+            }  
+
+        </script>
+
+    </head>
+    <body>
+        <div id="chat-container">
+            <div id="search-container">
+                <input type="text" placeholder="Search" />
+            </div>
+            <div id="conversation-list"></div>
+
+            <!--  -->
+            <div id="new-message-container">
+                <a href="#" id="addFriend" title="Add Friend">+</a>
+                <i id="friendRequests" class="fas fa-user-friends fa-4x" title="Friend Requests"></i>
+                <i id="logout"  class="fas fa-sign-out-alt fa-4x" title="Logout"></i>
+            </div>
+            <!-- 
+    
+ -->
+
+            <!--  -->
+            <div class="chat-message-list defaultBackground active"></div>
+            <!--  -->
+        </div>
+
+        <script defer src="./scripts/dynamic/addFriendModal.js"></script>
+
+        <div id="addFriendModal" class="modal">
+            <!-- Modal content -->
+            <div class="addFriend-modal-content">
+                <span class="addFriendClose">&times;</span>
+
+                <label for="friendEmail">Enter your friend's email </label>
+                <br />
+                <br />
+
+                <input
+                    type="text"
+                    name="friendEmail"
+                    id="friendEmail"
+                    placeholder="Email Id"
+                />
+                <br />
+                <br />
+                <button onclick="sendFriendReq()">Request</button>
+            </div>
+        </div>
+
+        <!-- //////////////////////////////////////////////////// -->
+        <!-- friend requests -->
+        <!-- Add friend Modal -->
+
+        <script defer src="./scripts/dynamic/friendRequestsModal.js"></script>
+        <script defer src="./scripts/dynamic/logout.js"></script>
+        <div id="friendRequestsModal" class="modal">
+            <!-- Modal content -->
+            <div class="friendRequests-modal-content">
+                <span class="friendRequestsClose">&times;</span>
+            </div>
+        </div>
+        <!-- ////////////////////////////////////////////////////
+    </body>
+</html>

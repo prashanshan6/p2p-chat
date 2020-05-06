@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+        <link rel="stylesheet" href="./styles/style.css" />
+    </head>
+    <body style="background-color: #21204a; overflow: hidden;">
+        <!-- link -->
+
+        <!-- <link rel="stylesheet" href="./bootstrap/bootstrap.min.css" /> -->
+        <link rel="stylesheet" href="./bootstrap/bootstrap.css" />
+
+        <!-- <script src="./bootstrap/jquery-3.4.1.slim.min.js"></script> -->
+        <script src="./scripts/jquery-3.4.1.min.js"></script>
+
+        <script src="./bootstrap/popper.min.js"></script>
+        <!-- <script src="./bootstrap/bootstrap.min.js"></script> -->
+        <script src="./bootstrap/bootstrap.js"></script>
+
+        <!--  -->
+        <div class="header"></div>
+        <!-- univ nav bar header -->
+        <script>
+            $(function () {
+                $(".header").load("./universalNav.html");
+            });
+        </script>
+        <!--  -->
+        <div class="loginBox">
+            <h2>Login</h2>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                />
+                <small id="emailHelp" class="form-text"
+                    >We'll never share your email with anyone else.</small
+                >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Password"
+                />
+            </div>
+            <button type="submit" onclick="login()" class="btn btn-primary">
+                Submit
+            </button>
+            <script src="./scripts/sky.js"></script>
+        </div>
+
+        <script>
+            function login() {
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+
+                var payload = {
+                    email: email,
+                    password: password,
+                };
+
+                var dataJson = JSON.stringify(payload);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:5000/api/user/login",
+                    data: dataJson,
+
+                    success: function (data) {
+                        console.log(data);
+                        sessionStorage.setItem("x-user-token", data.token);
+                        window.location.href = "./chatApp.html";
+                    },
+                    error: function (e) {
+                        alert(e.responseText);
+                        console.log(
+                            e.responseText,
+                            e.responseJSON,
+                            e.status,
+                            e.statusText
+                        );
+                    },
+                    // complete: function(jqxhr, txt_status) {
+                    //     console.log(txt_status, jqxhr);
+                    // }
+
+                    dataType: "json",
+                    contentType: "application/json",
+                });
+            }
+        </script>
+    </body>
+</html>
