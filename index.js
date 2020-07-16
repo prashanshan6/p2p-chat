@@ -19,7 +19,7 @@ app.use("/api/user", express.static(__dirname + "/views"));
 
 mongoose
     .connect(
-        "mongodb+srv://prashan:drsfiends@cluster0-twrax.mongodb.net/p2pChat?retryWrites=true&w=majority",
+        process.env.DB_STRING,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
